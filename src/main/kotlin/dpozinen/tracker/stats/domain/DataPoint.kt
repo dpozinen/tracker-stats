@@ -2,7 +2,7 @@ package dpozinen.tracker.stats.domain
 
 import java.time.Instant
 
-class DataPoint(
+data class DataPoint(
     val torrentId: String,
     val name: String,
     val size: Long,
