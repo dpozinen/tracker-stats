@@ -3,10 +3,10 @@ server:
 
 influx:
   org: zoe
-  url: http://localhost:8086
-  token: N2Q7z_WvQhJSr5h2CsIQ_DkMPnw_yAaYYIo17uAeYxx7vW8w_V5VOsWko5vITtHW6skUMrJ6Br52pN6j5n1rrw==
+  url: http://192.168.0.155:8086
+  token: MwKCSUMSoqls9TNRu3ajMNZg9otHMcQewTF57FbiluDX1lhIolm5yoYgLSrJ4sU4_nICkpbCJPX-PNQqFux0Lw==
   bucket: torrents
 
 kafka:
-  address: localhost:29092
+  address: 192.168.0.155:29093
   topic: stats
