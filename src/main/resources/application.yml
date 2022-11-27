@@ -4,7 +4,7 @@ server:
 influx:
   org: zoe
   url: http://localhost:8086
-  token: VdwECd0CB8IBzchBXROiCFWKD6ADZFregCdtaatOrKEXY3bEfQSlf3MmHthxDzsfI9NuqOBVs7584ihKIw_v-A==
+  token: AErK38IoL5fD_4taxLuwnVSeOvvldO-5xV9VJipZajynUZyCzPsKq5-CI1pXb7zpKO9aa0Ht6BcEOj-e3FROaw==
   bucket: torrents
 
 kafka:
