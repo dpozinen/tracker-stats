@@ -3,7 +3,6 @@ package dpozinen.tracker.stats.influx
 import com.influxdb.annotations.Column
 import com.influxdb.annotations.Measurement
 import java.time.Instant
-import java.time.LocalDate
 
 @Measurement(name = "torrent")
 data class TorrentMeasurement(
@@ -28,4 +27,8 @@ data class TorrentMeasurement(
 
     @Column(timestamp = true)
     val timestamp: Instant
-)
+){
+    override fun toString(): String {
+        return "TorrentMeasurement(name='$name', upSpeed=$upSpeed, downSpeed=$downSpeed, uploaded=$uploaded, downloaded=$downloaded, timestamp=$timestamp)"
+    }
+}

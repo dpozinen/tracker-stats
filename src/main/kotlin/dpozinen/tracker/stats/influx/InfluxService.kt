@@ -17,7 +17,7 @@ class InfluxService(private val writeKotlinApi: WriteKotlinApi) {
     fun write(stats: List<DataPoint>) {
         val measurements = stats.map { toMeasurement(it) }.asFlow()
 
-        log.info { "Received measurements ${measurements.map {  }}" }
+        log.info { "Received measurements $measurements" }
 
         runBlocking {
             writeKotlinApi.writeMeasurements(measurements, WritePrecision.S)
