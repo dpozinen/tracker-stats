@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "dpozinen"
-version = "1.0.0-beta"
+version = "1.0.0.Satie"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
