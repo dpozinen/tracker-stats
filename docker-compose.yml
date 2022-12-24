@@ -58,7 +58,7 @@ services:
       - influxdb
 
   trackerstats:
-    image: library/tracker-stats:0.0.1-SNAPSHOT
+    image: ghcr.io/dpozinen/tracker-stats:latest
     ports:
       - '8134:8134'
     depends_on:
