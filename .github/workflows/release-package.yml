@@ -18,7 +18,7 @@ jobs:
       - name: chmod +x gradlew
         run: chmod +x gradlew
       - name: Build a container image from our Spring Boot app using Paketo.io / Cloud Native Build Packs
-        run: ./gradlew bootBuildImage --imageName=$IMAGE_NAME
+        run: ./gradlew bootBuildImage
       - name: Tag & publish to GitHub Container Registry
         uses: docker/build-push-action@v3
         with:
