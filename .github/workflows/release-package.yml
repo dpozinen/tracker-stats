@@ -1,5 +1,8 @@
 name: build & publish image
 
+env:
+  IMAGE: tracker-stats
+
 on:
   release:
     types: [ created ]
@@ -17,9 +20,9 @@ jobs:
       - name: Login
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
       - name: Build image
-        run: chmod +x gradlew && ./gradlew bootBuildImage
+        run: chmod +x gradlew && ./gradlew bootBuildImage --imageName=$IMAGE
       - name: Tag & publish
-        uses: docker/build-push-action@v3
-        with:
-          push: true
-          tags: dpozinen/tracker-stats:latest
+        run: |
+          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$IMAGE
+          docker tag $IMAGE $IMAGE_ID:latest
+          docker push $IMAGE_ID:latest
