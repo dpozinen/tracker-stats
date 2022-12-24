@@ -1,0 +1,26 @@
+name: build & publish image
+
+on:
+  release:
+    types: [ created ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'corretto'
+          java-version: '17'
+      - name: Login to ghcr
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      - name: chmod +x gradlew
+        run: chmod +x gradlew
+      - name: Build a container image from our Spring Boot app using Paketo.io / Cloud Native Build Packs
+        run: ./gradlew bootBuildImage --imageName=$IMAGE_NAME
+      - name: Tag & publish to GitHub Container Registry
+        uses: docker/build-push-action@v3
+        with:
+          push: true
+          tags: dpozinen/tracker-stats:latest
