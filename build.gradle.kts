@@ -22,7 +22,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 
-	implementation("io.github.microutils:kotlin-logging-jvm:2.1.21")
+	implementation("io.github.microutils:kotlin-logging-jvm:3.0.5")
 	implementation("org.springframework.kafka:spring-kafka")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.4")
 	implementation("com.influxdb:influxdb-client-kotlin:6.7.0")
