@@ -15,6 +15,8 @@ services:
     ports:
       - "29092:29092"
       - "29093:29093"
+    volumes:
+      - /Users/dpozinenko/code/bebebe:/dptmp
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
@@ -23,22 +25,22 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,INTERNAL_HOST:PLAINTEXT,EXTERNAL_HOST:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-
-  init-kafka:
-    image: confluentinc/cp-kafka:latest
-    depends_on:
-      - kafka
-    entrypoint: [ '/bin/sh', '-c' ]
-    command: |
-      "
-      kafka-topics --bootstrap-server kafka:29092 --list
-      
-      echo -e 'Creating kafka topics'
-      kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic stats --replication-factor 1 --partitions 1
-      
-      echo -e 'Successfully created the following topics:'
-      kafka-topics --bootstrap-server kafka:29092 --list
-      "
+#  kafka-console-producer --topic stats --bootstrap-server localhost:9092 < /dptmp/events1.json
+#  init-kafka:
+#    image: confluentinc/cp-kafka:latest
+#    depends_on:
+#      - kafka
+#    entrypoint: [ '/bin/sh', '-c' ]
+#    command: |
+#      "
+#      kafka-topics --bootstrap-server kafka:29092 --list
+#
+#      echo -e 'Creating kafka topics'
+#      kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic stats --replication-factor 1 --partitions 1
+#
+#      echo -e 'Successfully created the following topics:'
+#      kafka-topics --bootstrap-server kafka:29092 --list
+#      "
 
   influxdb:
     image: influxdb:latest
@@ -48,6 +50,18 @@ services:
       - influxdb-storage:/var/lib/influxdb2
     environment:
       - INFLUXDB_DB=yggdrasil
+
+  postgres:
+    image: postgres:latest
+    ports:
+      - '5432:5432'
+    volumes:
+      - influxdb-storage:/var/lib/influxdb2
+    environment:
+      - POSTGRES_USER=zoe
+      - POSTGRES_PASSWORD=zoe
+      - POSTGRES_DB=torrents
+
   grafana:
     image: grafana/grafana:9.0.8
     ports:
@@ -57,20 +71,40 @@ services:
     depends_on:
       - influxdb
 
-  trackerstats:
-    image: ghcr.io/dpozinen/tracker-stats:latest
+  tracker-stats:
+    image: ghcr.io/dpozinen/tracker-stats:1.0.1.Satie
     ports:
       - '8134:8134'
     depends_on:
       - influxdb
       - kafka
 
+  tracker-ops:
+    image: ghcr.io/dpozinen/tracker-ops:2.1
+    ports:
+      - '8133:8133'
+      - '8138:8138'
+    depends_on:
+      - influxdb
+      - kafka
+      - tracker-stats
+    environment:
+      TRACKER-OPS_DELUGE_URL: http://192.168.0.184:18112
+      SPRING_PROFILES_ACTIVE: stats
+      SPRING_KAFKA_BOOTSTRAP-SERVERS: kafka:29092
+      MANAGEMENT_SERVER_PORT: 8138
+      MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: '*'
+      MANAGEMENT_ENDPOINT_ENV_SHOW_VALUES: 'always'
+      SERVER_SSL_KEY-ALIAS: zoe-to-truenas
+#      MANAGEMENT_ENDPOINTS_CONFIGPROPS_SHOW_VALUES: 'always'
 volumes:
   influxdb-storage:
   chronograf-storage:
   grafana-storage:
 
 # test
-# grafana pw qQZ-TnB.@Xm2q-A
-# influx pw Uk8cm7nmMTv9zHE
+# grafana pw avFdpik3B3iUpuj
+# influx pw TTyHShPC4yZXHKS
 # zoe rw token N2Q7z_WvQhJSr5h2CsIQ_DkMPnw_yAaYYIo17uAeYxx7vW8w_V5VOsWko5vITtHW6skUMrJ6Br52pN6j5n1rrw==
+
+# zoe rw token fSGi6m3UEkMpu5lGhpHfVVXIjMdEqjrHLn_CbLinH2EQuX7tS0I6gJp_UFiB2mY6vCn4vnmYwoHogf509Dduyg==

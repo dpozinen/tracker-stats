@@ -8,10 +8,10 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
 @Configuration
-class InfluxConfig {
+open class InfluxConfig {
 
     @Bean
-    fun influxDbClient(
+    open fun influxDbClient(
         @Value("\${influx.org}") org: String,
         @Value("\${influx.url}") url: String,
         @Value("\${influx.token}") token: String,
@@ -21,11 +21,11 @@ class InfluxConfig {
     }
 
     @Bean
-    fun writeKotlinApi(client: InfluxDBClientKotlin) =
+    open fun writeKotlinApi(client: InfluxDBClientKotlin) =
         client.getWriteKotlinApi()
 
     @Bean
-    fun readKotlinApi(client: InfluxDBClientKotlin) =
+    open fun readKotlinApi(client: InfluxDBClientKotlin) =
         client.getQueryKotlinApi()
 
 }

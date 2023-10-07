@@ -17,10 +17,10 @@ import org.springframework.kafka.support.serializer.JsonDeserializer
 
 @EnableKafka
 @Configuration
-class KafkaConfig {
+open class KafkaConfig {
 
     @Bean
-    fun consumerFactory(@Value("\${kafka.address}") kafkaAddress: String) =
+    open fun consumerFactory(@Value("\${kafka.address}") kafkaAddress: String) =
         DefaultKafkaConsumerFactory(
             mapOf<String, Any>(
                 BOOTSTRAP_SERVERS_CONFIG to kafkaAddress,
@@ -38,7 +38,7 @@ class KafkaConfig {
     }
 
     @Bean
-    fun kafkaListenerContainerFactory(consumerFactory: ConsumerFactory<String, List<DataPoint>>) =
+    open fun kafkaListenerContainerFactory(consumerFactory: ConsumerFactory<String, List<DataPoint>>) =
         ConcurrentKafkaListenerContainerFactory<String, List<DataPoint>>().also { it.consumerFactory = consumerFactory }
 
 }
