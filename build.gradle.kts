@@ -24,7 +24,7 @@ dependencies {
 
 	implementation("io.github.microutils:kotlin-logging-jvm:3.0.5")
 	implementation("org.springframework.kafka:spring-kafka")
-	implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.4")
+	implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.3")
 	implementation("com.influxdb:influxdb-client-kotlin:6.7.0")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
