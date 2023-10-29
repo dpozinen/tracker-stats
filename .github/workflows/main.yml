@@ -27,7 +27,7 @@ jobs:
       - name: Build
         run: ./gradlew build -x test
       - name: Test
-        run: ./gradlew test -d
+        run: ./gradlew test
       - name: Push
         env:
           GHCR_ACTOR: ${{ github.actor }}

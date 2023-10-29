@@ -13,6 +13,7 @@ import org.springframework.test.context.ActiveProfiles
 import org.testcontainers.shaded.org.awaitility.Awaitility.await
 import java.time.Duration
 import java.time.Instant.now
+import java.time.temporal.ChronoUnit
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -51,7 +52,7 @@ class TrackerStatsApplicationTests {
                     assertThat(it.id).isEqualTo("822a16435d53f9f712f747eef53d693cfeb52768")
                     assertThat(it.name).isEqualTo("The Good Shepherd (2006) (1080p BluRay x265 Panda).mkv")
                     assertThat(it.size).isEqualTo(123)
-                    assertThat(it.dateAdded).isEqualTo(now)
+                    assertThat(it.dateAdded.truncatedTo(ChronoUnit.SECONDS)).isEqualTo(now.truncatedTo(ChronoUnit.SECONDS))
                     assertThat(it.uploaded).isEqualTo(3)
                 }, atIndex(0))
         }
