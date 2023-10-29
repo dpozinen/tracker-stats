@@ -5,6 +5,3 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface TorrentRepository : JpaRepository<TorrentMeta, String>
-
-@Repository
-interface StatRepository : JpaRepository<Stat, Long>

@@ -2,16 +2,15 @@ package dpozinen.tracker.stats.postgres
 
 import dpozinen.tracker.stats.domain.DataPoint
 import jakarta.annotation.PostConstruct
-import mu.KotlinLogging
+import mu.KotlinLogging.logger
 import org.springframework.stereotype.Component
 import java.util.concurrent.ConcurrentHashMap
 
 @Component
 class PostgresService(
-    private val torrentRepository: TorrentRepository,
-    private val statRepository: StatRepository
+    private val torrentRepository: TorrentRepository
 ) {
-    private val log = KotlinLogging.logger {}
+    private val log = logger {}
 
     private val cache: MutableSet<String> = ConcurrentHashMap.newKeySet()
 
@@ -21,20 +20,12 @@ class PostgresService(
     }
 
     fun write(dataPoints: List<DataPoint>) {
-        addNewTorrents(dataPoints.filter { cache.add(it.torrentId) })
+        dataPoints.filter { cache.add(it.torrentId) }
+            .forEach { log.info { "Added new torrent ${it.name}" } }
 
-        statRepository.saveAll(dataPoints.map {
-            Stat(null, it.torrentId, it.upSpeed, it.downSpeed, it.uploaded, it.downloaded, it.timestamp)
-        })
-    }
-
-    private fun addNewTorrents(dataPoints: List<DataPoint>) {
         dataPoints.map {
-            TorrentMeta(it.torrentId, it.name, it.size, it.dateAdded)
-        }.let { torrents ->
-            log.info { "Added new torrents ${torrents.map { it.name }}" }
-            torrentRepository.saveAll(torrents)
-        }
+            TorrentMeta(it.torrentId, it.name, it.size, it.dateAdded, it.uploaded)
+        }.let { torrentRepository.saveAll(it) }
     }
 
 }

@@ -10,5 +10,6 @@ class TorrentMeta(
     val id: String,
     val name: String,
     val size: Long,
-    val dateAdded: Instant
+    val dateAdded: Instant,
+    val uploaded: Long
 )
