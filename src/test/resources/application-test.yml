@@ -1,8 +1,17 @@
 kafka:
-  address: http://kafka:9092
   topic: stats
-  enabled: false
 
-tracker-stats:
-  postgres:
-    enabled: false
+embedded.kafka.topicsToCreate: stats
+
+spring:
+  datasource:
+    url:  jdbc:postgresql://${embedded.postgresql.host}:${embedded.postgresql.port}/${embedded.postgresql.schema}
+    username: ${embedded.postgresql.user}
+    password: ${embedded.postgresql.password}
+  kafka:
+    bootstrap-servers: ${embedded.kafka.brokerList}
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+influx:
+  enabled: false

@@ -20,11 +20,10 @@ import org.springframework.kafka.support.serializer.JsonDeserializer
 
 @EnableKafka
 @Configuration
-@ConditionalOnProperty("kafka.enabled", havingValue = "true", matchIfMissing = false)
 open class KafkaConfig {
 
     @Bean
-    open fun consumerFactory(@Value("\${kafka.address}") kafkaAddress: String) =
+    open fun consumerFactory(@Value("\${spring.kafka.bootstrap-servers}") kafkaAddress: String) =
         DefaultKafkaConsumerFactory(
             mapOf<String, Any>(
                 BOOTSTRAP_SERVERS_CONFIG to kafkaAddress,

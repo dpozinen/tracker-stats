@@ -8,9 +8,7 @@ import org.springframework.boot.runApplication
 import org.springframework.scheduling.annotation.EnableScheduling
 
 @SpringBootApplication(
-    exclude = [DataSourceAutoConfiguration::class,
-        DataSourceTransactionManagerAutoConfiguration::class,
-        HibernateJpaAutoConfiguration::class]
+    exclude = [DataSourceAutoConfiguration::class, HibernateJpaAutoConfiguration::class]
 )
 @EnableScheduling
 open class TrackerStatsApplication
