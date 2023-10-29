@@ -7,8 +7,9 @@ import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.stereotype.Component
 
 @Component
-class StatsKafkaListener(private val influxService: InfluxService,
-                         private val postgres: PostgresService
+class StatsKafkaListener(
+    private val influxService: InfluxService,
+    private val postgres: PostgresService
 ) {
 
     @KafkaListener(topics = ["stats"])
