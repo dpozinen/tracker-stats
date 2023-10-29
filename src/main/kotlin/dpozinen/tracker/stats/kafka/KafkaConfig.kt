@@ -3,9 +3,12 @@ package dpozinen.tracker.stats.kafka
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import dpozinen.tracker.stats.domain.DataPoint
+import dpozinen.tracker.stats.influx.InfluxService
+import dpozinen.tracker.stats.postgres.PostgresService
 import org.apache.kafka.clients.consumer.ConsumerConfig.*
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.kafka.annotation.EnableKafka
@@ -17,10 +20,10 @@ import org.springframework.kafka.support.serializer.JsonDeserializer
 
 @EnableKafka
 @Configuration
-class KafkaConfig {
+open class KafkaConfig {
 
     @Bean
-    fun consumerFactory(@Value("\${kafka.address}") kafkaAddress: String) =
+    open fun consumerFactory(@Value("\${spring.kafka.bootstrap-servers}") kafkaAddress: String) =
         DefaultKafkaConsumerFactory(
             mapOf<String, Any>(
                 BOOTSTRAP_SERVERS_CONFIG to kafkaAddress,
@@ -38,7 +41,13 @@ class KafkaConfig {
     }
 
     @Bean
-    fun kafkaListenerContainerFactory(consumerFactory: ConsumerFactory<String, List<DataPoint>>) =
+    open fun kafkaListenerContainerFactory(consumerFactory: ConsumerFactory<String, List<DataPoint>>) =
         ConcurrentKafkaListenerContainerFactory<String, List<DataPoint>>().also { it.consumerFactory = consumerFactory }
+
+    @Bean
+    open fun statsKafkaListener(
+        influxService: InfluxService,
+        postgres: PostgresService
+    ) = StatsKafkaListener(influxService, postgres)
 
 }
