@@ -25,7 +25,9 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Build
-        run: ./gradlew build -d
+        run: ./gradlew build -x test
+      - name: Test
+        run: ./gradlew test -d
       - name: Push
         env:
           GHCR_ACTOR: ${{ github.actor }}
