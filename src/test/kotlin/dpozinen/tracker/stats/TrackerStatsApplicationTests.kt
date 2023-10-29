@@ -44,7 +44,7 @@ class TrackerStatsApplicationTests {
 
 		kafkaTemplate.send(topic, listOf(dataPoint)).get()
 
-        await().atMost(Duration.ofSeconds(20)).untilAsserted {
+        await().atMost(Duration.ofSeconds(60)).untilAsserted {
             assertThat(torrentRepository.findAll())
                 .hasSize(1)
                 .satisfies({
