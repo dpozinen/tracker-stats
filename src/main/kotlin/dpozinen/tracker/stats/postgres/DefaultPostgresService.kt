@@ -25,7 +25,10 @@ open class DefaultPostgresService(private val torrentRepository: TorrentReposito
 
         dataPoints.map {
             TorrentMeta(it.torrentId, it.name, it.size, it.dateAdded, it.uploaded)
-        }.let { torrentRepository.saveAll(it) }
+        }.let {
+            log.debug { "Writing torrents $it" }
+            torrentRepository.saveAll(it)
+        }
     }
 
 }

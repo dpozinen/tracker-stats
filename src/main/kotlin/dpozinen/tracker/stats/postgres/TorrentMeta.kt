@@ -14,4 +14,8 @@ class TorrentMeta(
     val dateAdded: Instant,
     @Column(name="uploaded", columnDefinition = "bigint not null default 0")
     val uploaded: Long
-)
+) {
+    override fun toString(): String {
+        return "TorrentMeta(id='$id', name='$name', size=$size, dateAdded=$dateAdded, uploaded=$uploaded)"
+    }
+}

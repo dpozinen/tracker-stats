@@ -15,3 +15,9 @@ spring:
 
 influx:
   enabled: false
+
+logging:
+  level:
+    dpozinen:
+      tracker:
+        stats: DEBUG
