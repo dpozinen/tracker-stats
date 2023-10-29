@@ -10,6 +10,7 @@ influx:
 kafka:
   address: http://kafka:9092
   topic: stats
+  enabled: true
 
 
 spring:

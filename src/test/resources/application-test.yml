@@ -1,0 +1,8 @@
+kafka:
+  address: http://kafka:9092
+  topic: stats
+  enabled: false
+
+tracker-stats:
+  postgres:
+    enabled: false
