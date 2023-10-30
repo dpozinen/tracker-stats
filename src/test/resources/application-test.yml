@@ -1,6 +1,9 @@
 kafka:
   topic: stats
 
+influx:
+  url: ${embedded.influx.url}
+
 embedded.kafka.topicsToCreate: stats
 
 spring:
@@ -12,9 +15,6 @@ spring:
     bootstrap-servers: ${embedded.kafka.brokerList}
     producer:
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-
-influx:
-  enabled: false
 
 logging:
   level:
