@@ -37,7 +37,7 @@ dependencies {
     testImplementation 'org.springframework.cloud:spring-cloud-starter-bootstrap:4.0.4'
     testImplementation 'com.playtika.testcontainers:embedded-kafka:3.1.9'
     testImplementation 'com.playtika.testcontainers:embedded-postgresql:3.1.9'
-    testImplementation 'org.testcontainers:influxdb:1.20.2'
+    testImplementation 'org.testcontainers:influxdb:1.20.3'
     testImplementation 'org.influxdb:influxdb-java:2.24'
 }
 
