@@ -29,7 +29,7 @@ dependencies {
     implementation 'org.springframework.kafka:spring-kafka'
     implementation 'com.fasterxml.jackson.module:jackson-module-kotlin:2.19.0'
     implementation 'com.influxdb:influxdb-client-kotlin:7.3.0'
-    implementation 'org.postgresql:postgresql:42.7.6'
+    implementation 'org.postgresql:postgresql:42.7.7'
 
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
