@@ -6,7 +6,7 @@ plugins {
     id 'org.jetbrains.kotlin.plugin.allopen' version '2.2.0'
     id 'org.jetbrains.kotlin.plugin.jpa' version '2.2.0'
     id 'com.google.cloud.tools.jib' version '3.4.5'
-    id 'org.jetbrains.kotlin.jvm' version '2.2.0'
+    id 'org.jetbrains.kotlin.jvm' version '2.2.10'
 }
 
 group = 'dpozinen'
