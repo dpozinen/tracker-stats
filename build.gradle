@@ -27,7 +27,7 @@ dependencies {
 
     implementation 'io.github.microutils:kotlin-logging-jvm:3.0.5'
     implementation 'org.springframework.kafka:spring-kafka'
-    implementation 'com.fasterxml.jackson.module:jackson-module-kotlin:2.20.0'
+    implementation 'com.fasterxml.jackson.module:jackson-module-kotlin:2.20.1'
     implementation 'com.influxdb:influxdb-client-kotlin:7.3.0'
     implementation 'org.postgresql:postgresql:42.7.7'
 
